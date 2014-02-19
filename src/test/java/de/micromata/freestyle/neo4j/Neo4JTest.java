@@ -3,6 +3,7 @@ package de.micromata.freestyle.neo4j;
 import info.unterstein.neo4j.quickstart.Neo4JServiceProvider;
 import info.unterstein.neo4j.quickstart.model.Organisation;
 import info.unterstein.neo4j.quickstart.model.User;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,12 @@ public class Neo4JTest {
   @Autowired
   private Neo4JServiceProvider provider;
 
+  @Before
+  public void setUp() {
+    provider.organisationRepository.deleteAll();
+    provider.userRepository.deleteAll();
+  }
+
   @Test
   public void testRelations() {
     Organisation orga1 = createOrganisation("Orga1", null);
@@ -24,7 +31,9 @@ public class Neo4JTest {
     Organisation sub2sub1 = createOrganisation("Orga1 - Sub2 - Sub 1", sub2);
     User user1 = createUser("User1 -> Orga1 - Sub1", sub1);
     User user2 = createUser("User1 -> Orga1 - Sub2", sub2);
-    System.out.println(provider.organisationRepository.findOrganisationsForUser(user2));
+    for (Organisation o : provider.organisationRepository.findOrganisationsForUser(user2)) {
+      System.out.println(o.name);
+    }
   }
 
   private Organisation createOrganisation(String name, Organisation parent) {
