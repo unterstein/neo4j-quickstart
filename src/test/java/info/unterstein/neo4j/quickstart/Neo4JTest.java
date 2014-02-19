@@ -1,4 +1,4 @@
-package de.micromata.freestyle.neo4j;
+package info.unterstein.neo4j.quickstart;
 
 import info.unterstein.neo4j.quickstart.Neo4JServiceProvider;
 import info.unterstein.neo4j.quickstart.model.Organisation;
