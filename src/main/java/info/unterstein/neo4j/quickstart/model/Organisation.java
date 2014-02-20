@@ -11,12 +11,7 @@ import java.util.Set;
 
 @NodeEntity
 @TypeAlias("Organisation")
-public class Organisation {
-
-  @GraphId
-  public Long pk;
-
-  public String name;
+public class Organisation extends AuthoredEntity {
 
   @RelatedTo(type = Relations.ORGANISATION_ORGANISATION)
   public Organisation parent;
