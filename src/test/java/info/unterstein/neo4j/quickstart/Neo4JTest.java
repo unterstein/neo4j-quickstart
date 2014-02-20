@@ -33,12 +33,10 @@ public class Neo4JTest {
     Organisation orga1 = createOrganisation("Orga1", null, god);
     Organisation sub1 = createOrganisation("Orga1 - Sub1", orga1, god);
     Organisation sub2 = createOrganisation("Orga1 - Sub2", orga1, god);
-    Organisation sub2sub1 = createOrganisation("Orga1 - Sub2 - Sub 1", sub2, god);
 
     User user = createUser("User1 -> Orga1 - Sub1", sub1, god);
     // expected:
-    // Orga1 - Sub2
-    // Orga1 - Sub2 - Sub 1
+    // Orga1 - Sub1
     List<Organisation> organisationsForUser = provider.organisationRepository.findOrganisationsForUser(user);
     Assert.assertEquals(1, organisationsForUser.size());
   }
@@ -50,14 +48,12 @@ public class Neo4JTest {
     Organisation orga1 = createOrganisation("Orga1", null, god);
     Organisation sub1 = createOrganisation("Orga1 - Sub1", orga1, god);
     Organisation sub2 = createOrganisation("Orga1 - Sub2", orga1, god);
-    Organisation sub2sub1 = createOrganisation("Orga1 - Sub2 - Sub 1", sub2, god);
     god.organisation = orga1;
     provider.userRepository.save(god);
 
     User user = createUser("User1 -> Orga1 - Sub1", sub1, god);
     // expected:
-    // Orga1 - Sub2
-    // Orga1 - Sub2 - Sub 1
+    // Orga1 - Sub1
     List<Organisation> organisationsForUser = provider.organisationRepository.findOrganisationsForUser(user);
     Assert.assertEquals(1, organisationsForUser.size());
   }
