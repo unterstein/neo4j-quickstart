@@ -16,6 +16,7 @@ public interface OrganisationRepository extends GraphRepository<Organisation> {
   // but each UNION starts a new cypher, therefore this is correct:
   // @Query("START user=node({0}) MATCH user-[:" + Relations.ORGANISATION_USER + "]-organisation RETURN organisation UNION START user=node({0}) MATCH user-[:" + Relations.ORGANISATION_USER + "]-organisation<-[:" + Relations.ORGANISATION_ORGANISATION + "*]-children RETURN children as organisation")
   // but far to complicated, therefore use this fancy cypher: (thanks to michael hunger!)
+
   @Query("START user=node({0})  MATCH user-[:" + Relations.ORGANISATION_USER + "]->organisation<-[:" + Relations.ORGANISATION_ORGANISATION + "*0..]-children RETURN children")
   public List<Organisation> findOrganisationsForUser(User user);
 }
